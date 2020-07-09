@@ -5,6 +5,9 @@
   "username": "market_leiloes",
   "password": "market_leiloes",
   "database": "db_market_leiloes",
+  "entities": [
+    "./src/models/*.ts"
+  ],
   "migrations": [
     "./src/database/migrations/*.ts"
   ],
