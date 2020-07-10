@@ -41,6 +41,9 @@ class User {
   @Column()
   status_id: number;
 
+  @Column()
+  avatar: string;
+
   @CreateDateColumn()
   created_at: Date;
 

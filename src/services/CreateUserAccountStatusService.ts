@@ -1,5 +1,7 @@
 import { getRepository } from 'typeorm';
 
+import AppError from '../errors/AppError';
+
 import UserAccountStatus from '../models/UserAccountStatus';
 
 interface Request {
@@ -15,7 +17,7 @@ class UserAccountStatusService {
     });
 
     if (checkStatusExists) {
-      throw new Error('Status already used');
+      throw new AppError('Status already used');
     }
 
     const userAccountStatus = usersAccountStatusRepository.create({
