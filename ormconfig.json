@@ -13,5 +13,8 @@
   ],
   "cli": {
     "migrationsDir": "./src/database/migrations"
+  },
+  "options": {
+    "enableArithAbort": true
   }
 }
