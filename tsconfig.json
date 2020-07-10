@@ -23,13 +23,7 @@
     "paths": {
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
-      "@shared/*": ["shared/*"],
-    },
-  },
-  "include": [
-    "./src"
-  ],
-  "exclude": [
-    "prettier.config.js"
-  ]
+      "@shared/*": ["shared/*"]
+    }
+  }
 }
