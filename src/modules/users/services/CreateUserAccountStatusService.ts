@@ -13,17 +13,21 @@ interface IRequest {
 class UserAccountStatusService {
   constructor(
     @inject('UsersAccountsStatusRepository')
-    private usersAccountStatusRepository: IUsersAccountStatusRepository
+    private usersAccountStatusRepository: IUsersAccountStatusRepository,
   ) {}
 
   public async execute({ description }: IRequest): Promise<UserAccountStatus> {
-    const checkStatusExists = await this.usersAccountStatusRepository.findByDescription(description);
+    const checkStatusExists = await this.usersAccountStatusRepository.findByDescription(
+      description,
+    );
 
     if (checkStatusExists) {
       throw new AppError('Status already used');
     }
 
-    const userAccountStatus = this.usersAccountStatusRepository.create(description);
+    const userAccountStatus = this.usersAccountStatusRepository.create(
+      description,
+    );
 
     return userAccountStatus;
   }

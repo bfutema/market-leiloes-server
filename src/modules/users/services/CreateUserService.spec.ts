@@ -9,7 +9,10 @@ describe('CreateUser', () => {
     const fakeUserRepository = new FakeUserRepository();
     const fakeHashProvider = new FakeHashProvider();
 
-    const createUser = new CreateUserService(fakeUserRepository, fakeHashProvider);
+    const createUser = new CreateUserService(
+      fakeUserRepository,
+      fakeHashProvider,
+    );
 
     const user = await createUser.execute({
       username: 'JohnDoe',
@@ -30,9 +33,12 @@ describe('CreateUser', () => {
     const fakeUserRepository = new FakeUserRepository();
     const fakeHashProvider = new FakeHashProvider();
 
-    const createUser = new CreateUserService(fakeUserRepository, fakeHashProvider);
+    const createUser = new CreateUserService(
+      fakeUserRepository,
+      fakeHashProvider,
+    );
 
-    const user = await createUser.execute({
+    await createUser.execute({
       username: 'JohnDoe',
       email: 'johndoe@example.com',
       password: '123456',
@@ -44,16 +50,18 @@ describe('CreateUser', () => {
       gender: 'M',
     });
 
-    expect(createUser.execute({
-      username: 'JohnDoe',
-      email: 'johndoe@example.com',
-      password: '123456',
-      name: 'John',
-      surname: 'Doe',
-      cpf_cnpj: '12345678910',
-      rg: '123456781',
-      birth: new Date(),
-      gender: 'M',
-    })).rejects.toBeInstanceOf(AppError);
+    expect(
+      createUser.execute({
+        username: 'JohnDoe',
+        email: 'johndoe@example.com',
+        password: '123456',
+        name: 'John',
+        surname: 'Doe',
+        cpf_cnpj: '12345678910',
+        rg: '123456781',
+        birth: new Date(),
+        gender: 'M',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
-})
+});
