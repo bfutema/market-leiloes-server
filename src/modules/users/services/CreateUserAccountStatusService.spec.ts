@@ -29,7 +29,7 @@ describe('CreateUserAccountStatus', () => {
       description: 'status-test',
     });
 
-    expect(
+    await expect(
       createUserAccountStatus.execute({
         description: 'status-test',
       }),
