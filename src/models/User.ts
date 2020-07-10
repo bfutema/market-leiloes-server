@@ -27,7 +27,7 @@ class User {
   surname: string;
 
   @Column()
-  cpfCnpj: string;
+  cpf_cnpj: string;
 
   @Column()
   rg: string;
@@ -37,6 +37,9 @@ class User {
 
   @Column()
   gender: string;
+
+  @Column()
+  status_id: number;
 
   @CreateDateColumn()
   created_at: Date;
