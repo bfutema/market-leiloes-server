@@ -4,7 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
+  OneToOne,
 } from 'typeorm';
+
+import UserAccountStatus from './UserAccountStatus';
 
 @Entity('users')
 class User {
@@ -38,8 +42,9 @@ class User {
   @Column()
   gender: string;
 
-  @Column()
-  status_id: number;
+  @OneToOne(() => UserAccountStatus)
+  @JoinColumn({ name: 'status_id' })
+  status: number;
 
   @Column()
   avatar: string;

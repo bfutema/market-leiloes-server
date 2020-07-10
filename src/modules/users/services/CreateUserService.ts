@@ -1,11 +1,12 @@
-import { getRepository } from 'typeorm';
+import { parseISO } from 'date-fns';
 import { hash } from 'bcryptjs';
 
-import AppError from '../errors/AppError';
+import AppError from '@shared/errors/AppError';
 
-import User from '../models/User';
+import User from '../infra/typeorm/entities/User';
+import IUsersRepository from '../repositories/IUsersRepository';
 
-interface Request {
+interface IRequest {
   username: string;
   email: string;
   password: string;
@@ -18,6 +19,8 @@ interface Request {
 }
 
 class CreateUserService {
+  constructor(private usersRepository: IUsersRepository) {}
+
   public async execute({
     username,
     email,
@@ -26,14 +29,10 @@ class CreateUserService {
     surname,
     cpf_cnpj,
     rg,
-    birth,
+    birth: birth_date,
     gender,
-  }: Request): Promise<User> {
-    const usersRepository = getRepository(User);
-
-    const checkUserExists = await usersRepository.findOne({
-      where: { email },
-    });
+  }: IRequest): Promise<User> {
+    const checkUserExists = await this.usersRepository.findByEmail(email);
 
     if (checkUserExists) {
       throw new AppError('Email address already used.');
@@ -41,7 +40,9 @@ class CreateUserService {
 
     const password_hash = await hash(password, 8);
 
-    const user = usersRepository.create({
+    const birth = parseISO(birth_date);
+
+    const user = await this.usersRepository.create({
       username,
       email,
       password_hash,
@@ -52,8 +53,6 @@ class CreateUserService {
       birth,
       gender,
     });
-
-    await usersRepository.save(user);
 
     return user;
   }
