@@ -3,15 +3,20 @@ import AppError from '@shared/errors/AppError';
 import FakeUsersAccountsRepository from '../repositories/fakes/FakeUsersAccountsStatusRepository';
 import CreateUserAccountStatusService from './CreateUserAccountStatusService';
 
-describe('CreateUserAccountStatus', () => {
-  it('should be able to create a new status for user account', async () => {
-    const fakeUsersAccountsStatusRepository = new FakeUsersAccountsRepository();
+let fakeUsersAccountsStatusRepository: FakeUsersAccountsRepository;
+let crateUsersAccountsStatusService: CreateUserAccountStatusService;
 
-    const createUserAccountStatus = new CreateUserAccountStatusService(
+describe('CreateUserAccountStatus', () => {
+  beforeEach(() => {
+    fakeUsersAccountsStatusRepository = new FakeUsersAccountsRepository();
+
+    crateUsersAccountsStatusService = new CreateUserAccountStatusService(
       fakeUsersAccountsStatusRepository,
     );
+  });
 
-    const userAccountStatus = await createUserAccountStatus.execute({
+  it('should be able to create a new status for user account', async () => {
+    const userAccountStatus = await crateUsersAccountsStatusService.execute({
       description: 'status-test',
     });
 
@@ -19,18 +24,12 @@ describe('CreateUserAccountStatus', () => {
   });
 
   it('should not be able to create a new status for user account with same description from another', async () => {
-    const fakeUsersAccountsStatusRepository = new FakeUsersAccountsRepository();
-
-    const createUserAccountStatus = new CreateUserAccountStatusService(
-      fakeUsersAccountsStatusRepository,
-    );
-
-    await createUserAccountStatus.execute({
+    await crateUsersAccountsStatusService.execute({
       description: 'status-test',
     });
 
     await expect(
-      createUserAccountStatus.execute({
+      crateUsersAccountsStatusService.execute({
         description: 'status-test',
       }),
     ).rejects.toBeInstanceOf(AppError);

@@ -48,19 +48,19 @@
 
 **RF**
 
-- O usuário deve poder recuperar sua senha informando o seu email;
-- O usuário deve receber um email com instruções de recuperação de senha;
-- O usuário deve poder resetar sua senha;
+- [x] O usuário deve poder recuperar sua senha informando o seu email;
+- [x] O usuário deve receber um email com instruções de recuperação de senha;
+- [x] O usuário deve poder resetar sua senha;
 
 **RNF**
 
-- Utilizar Mailtrap para testar envios de ambiente de dev;
+- [x] Utilizar Mailtrap/Ethereal para testar envios de ambiente de dev;
 - Utilizar Amazon SES para envios em produção;
 - O envio de emails deve acontecer em segundo plano (background job);
 
 **RN**
 
-- O link enviado por email para resetar senha, deve expirar em 2h;
+- [x] O link enviado por email para resetar senha, deve expirar em 2h;
 - O usuário precisa confirmar a nova senha ao resetar sua senha;
 - A senha deverá conter no mínimo letras minúsculas, maiúsculas, números e caracteres especiais;
 
