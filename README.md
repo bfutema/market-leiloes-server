@@ -70,13 +70,13 @@
 
 - O usuário deve poder atualizar seu username apenas uma vez;
 - O usuário só pode atualilzar seu cpf_cnpj ou rg mas havendo um processo de análise dessa alteração;
-- O usuário deve poder atualizar seu nome, sobrenome, data de nascimento, gênero, avatar, email e senha;
-- O usuário poderá realizar o login e visualizar a situação da análise de criação da conta;
+- [x] O usuário deve poder atualizar seu nome, sobrenome, data de nascimento, gênero, avatar, email e senha;
+- [/] O usuário poderá realizar o login e visualizar a situação da análise de criação da conta;
 
 **RN**
 
-- O usuário não pode alterar seu email para um email já utilizado por outro usuário;
-- Para atualizar sua senha, o usuário deve informar a senha antiga;
+- [x] O usuário não pode alterar seu email para um email já utilizado por outro usuário;
+- [x] Para atualizar sua senha, o usuário deve informar a senha antiga;
 - Para atualizar sua senha, o usuário precisa confirmar a nova senha;
 
 # Painel do arrematante
