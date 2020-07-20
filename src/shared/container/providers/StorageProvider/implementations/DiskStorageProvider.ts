@@ -13,6 +13,18 @@ class DiskStorageProvider implements IStorageProvider {
     return file;
   }
 
+  public async deleteTempFile(file: string): Promise<void> {
+    const filePath = path.resolve(uploadConfig.tmpFolder, file);
+
+    try {
+      await fs.promises.stat(filePath);
+    } catch {
+      return;
+    }
+
+    await fs.promises.unlink(filePath);
+  }
+
   public async deleteFile(file: string): Promise<void> {
     const filePath = path.resolve(uploadConfig.uploadsFolder, file);
 

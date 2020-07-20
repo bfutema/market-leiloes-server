@@ -12,6 +12,9 @@ import UsersAccountsStatusRepository from '@modules/users/infra/typeorm/reposito
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 
+import ITempFilesRepository from '@modules/tempfiles/repositories/ITempFilesRepository';
+import TempFilesRepository from '@modules/tempfiles/infra/typeorm/repositories/TempFilesRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -25,4 +28,9 @@ container.registerSingleton<IUserTokensRepository>(
 container.registerSingleton<IUsersAccountsStatusRepository>(
   'UsersAccountsStatusRepository',
   UsersAccountsStatusRepository,
+);
+
+container.registerSingleton<ITempFilesRepository>(
+  'TempFilesRepository',
+  TempFilesRepository,
 );

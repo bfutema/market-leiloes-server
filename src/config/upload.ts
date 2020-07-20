@@ -13,6 +13,8 @@ export default {
       const fileHash = crypto.randomBytes(10).toString('hex');
       const fileName = `${fileHash}-${file.originalname}`;
 
+      file.key = fileName;
+
       return callback(null, fileName);
     },
   }),
