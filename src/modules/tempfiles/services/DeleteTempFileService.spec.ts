@@ -1,3 +1,4 @@
+import AppError from '@shared/errors/AppError';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 import FakeTempFilesRepository from '../repositories/fakes/FakeTempFilesRepository';
 import CreateTempFileService from './CreateTempFileService';
@@ -40,5 +41,11 @@ describe('DeleteTempFile', () => {
     const deletedFile = await fakeTempFilesRepository.findById(id);
 
     expect(deletedFile).toBeUndefined();
+  });
+
+  it('should not be able to delete non exixting temp file', async () => {
+    await expect(
+      deleteTempFileService.execute({ id: 'non-exixting-temp-file' }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
