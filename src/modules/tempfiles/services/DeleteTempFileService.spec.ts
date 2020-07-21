@@ -35,7 +35,7 @@ describe('DeleteTempFile', () => {
 
     const id = tempFile.id.toString();
 
-    await deleteTempFileService.execute(id);
+    await deleteTempFileService.execute({ id });
 
     const deletedFile = await fakeTempFilesRepository.findById(id);
 

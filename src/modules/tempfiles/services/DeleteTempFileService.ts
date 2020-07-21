@@ -5,6 +5,10 @@ import AppError from '@shared/errors/AppError';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import ITempFilesRepository from '../repositories/ITempFilesRepository';
 
+interface IRequest {
+  id: string;
+}
+
 @injectable()
 class DeleteTempFileService {
   constructor(
@@ -15,7 +19,7 @@ class DeleteTempFileService {
     private tempFilesRepository: ITempFilesRepository,
   ) {}
 
-  public async execute(id: string): Promise<void> {
+  public async execute({ id }: IRequest): Promise<void> {
     const findTempFile = await this.tempFilesRepository.findById(id);
 
     if (!findTempFile) {
