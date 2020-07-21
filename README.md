@@ -3,9 +3,9 @@
 **RF**
 
 - O usuário deve poder se candidatar para começar a ser um arrematante somente após uma análise de perfil;
-- O usuário deve poder informar seu nome, sobrenome, data de nascimento, gênero, email e senha;
-- O usuário deve poder fazer upload do avatar e dos documentos referentes aos campos de cpf_cnpj e rg;
-- O usuário deverá fazer enviar um documento de prolabore da sua empresa para ser usado na análise do perfil;
+[x] O usuário deve poder informar seu nome, sobrenome, data de nascimento, gênero, email e senha;
+[x] O usuário deve poder fazer upload do avatar e dos documentos referentes aos campos de cpf_cnpj e rg;
+[x] O usuário deverá poder enviar um documento de prolabore da sua empresa para ser usado na análise do perfil;
 - O usuário deve receber um email de boas vindas informando que a análise de perfil foi encaminhada;
 
 **RNF**
@@ -115,3 +115,58 @@
 
 - O usuário não pode dar lance em um leilão que está fechado;
 - O usuário não pode cancelar os lances que foram dados;
+
+
+
+# Itens a mais faltantes
+
+## Etapa de cadastro
+
+- Verificar nível mínimo de complexidade de senha
+- Adicionar datepicker no campo birth no cadastro de usuário
+- Aumentar a quantidade de caracteres no campo cpf_cnpj na tabela
+- Ao realizar o envio dos dados cadastrais, remover fotos do mongo e cadastrar na tabela SQL
+- Idem á tarefa anterior porém para as fotos físicas, transferindo da pasta tmp para uploads
+- Ao finalizar os passos de cadastro enviar um e-mail de boas vindas e com informações sobre conduta
+- Verificar questões de usabilidade e verificar mensagens de retorno da api, ex.: email duplicado ou cpfCnpj
+
+## Etapa de login
+
+- Registrar todos os logins que são feitos na aplicação
+- Ao fazer logoff remover token de usuário logado
+- Manter registros de atividades
+- Ao fazer login, carregar também o tipo de acesso e status da conta
+- Criar tipos de perfis de acesso e bloquear usuário com conta inativa de acessar todas as funcionalidades
+
+## Gerenciamento de perfil
+
+### Antes de aprovado
+- Apenas poder visualizar os dados sem poder alterar
+
+### Após aprovado
+- Alterar dados de perfil
+
+### Após reprovado
+- A conta fica existente porém bloqueada por 3 meses para tentar novamente
+- A reprovação precisa ter o tipo de reprovação
+
+## Gerenciamento de candidaturas
+
+- Visualizar candidatos
+- Aprovar candidato
+- Reprovar candidato
+- Se possível integrar com alguma agência para vaidar o cpf ou cnpj
+
+## Produtos
+
+- CRUD de produtos
+
+## Lances
+
+- Realizar os lances para arrematar
+
+## Gerenciar parâmetros de prevenção
+
+- CRUD de parâmetros de prevenções. Ex.: produto com validade 90 dias ao chegar num dia X diminuir preço
+- Sempre que um produto diminuir o proço enviar um e-mail para o ofertante
+
