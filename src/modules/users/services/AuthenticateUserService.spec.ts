@@ -1,10 +1,12 @@
 import AppError from '@shared/errors/AppError';
 
+import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import AuthenticateUserService from './AuthenticateUserService';
 import CreateUserService from './CreateUserService';
 
+let fakeMailProvider: FakeMailProvider;
 let fakeHashProvider: FakeHashProvider;
 let fakeUsersRepository: FakeUsersRepository;
 let createUserService: CreateUserService;
@@ -12,11 +14,13 @@ let authenticateUserService: AuthenticateUserService;
 
 describe('AuthenticateUser', () => {
   beforeEach(() => {
+    fakeMailProvider = new FakeMailProvider();
     fakeHashProvider = new FakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
 
     createUserService = new CreateUserService(
       fakeUsersRepository,
+      fakeMailProvider,
       fakeHashProvider,
     );
 

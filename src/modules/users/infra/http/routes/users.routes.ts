@@ -3,18 +3,18 @@ import multer from 'multer';
 import uploadConfig from '@config/upload';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
-import UsersController from '../controllers/UsersController';
+import UserController from '../controllers/UserController';
 import UserAvatarController from '../controllers/UserAvatarController';
 import UserAccountStatusController from '../controllers/UserAccountStatusController';
 
 const usersRouter = Router();
 const upload = multer(uploadConfig);
 
-const usersController = new UsersController();
+const userController = new UserController();
 const userAvatarController = new UserAvatarController();
 const userAccountStatusController = new UserAccountStatusController();
 
-usersRouter.post('/', usersController.create);
+usersRouter.post('/', userController.create);
 
 usersRouter.use(ensureAuthenticated);
 
