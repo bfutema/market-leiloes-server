@@ -1,25 +1,33 @@
 import AppError from '@shared/errors/AppError';
 
+import FakeTempFilesRepository from '@modules/tempfiles/repositories/fakes/FakeTempFilesRepository';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
+import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import FakeUserRepository from '../repositories/fakes/FakeUsersRepository';
 import CreateUserService from './CreateUserService';
 
+let fakeTempFilesRepository: FakeTempFilesRepository;
 let fakeMailProvider: FakeMailProvider;
+let fakeStorageProvider: FakeStorageProvider;
 let fakeHashProvider: FakeHashProvider;
 let fakeUsersRepository: FakeUserRepository;
 let createUserService: CreateUserService;
 
 describe('CreateUser', () => {
   beforeEach(() => {
+    fakeTempFilesRepository = new FakeTempFilesRepository();
     fakeMailProvider = new FakeMailProvider();
     fakeHashProvider = new FakeHashProvider();
+    fakeStorageProvider = new FakeStorageProvider();
     fakeUsersRepository = new FakeUserRepository();
 
     createUserService = new CreateUserService(
       fakeUsersRepository,
+      fakeTempFilesRepository,
       fakeMailProvider,
       fakeHashProvider,
+      fakeStorageProvider,
     );
   });
 
@@ -36,6 +44,8 @@ describe('CreateUser', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      avatar_id: '',
+      documents_ids: [''],
     });
 
     expect(user).toHaveProperty('id');
@@ -53,6 +63,8 @@ describe('CreateUser', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      avatar_id: '',
+      documents_ids: [''],
     });
 
     await expect(
@@ -66,6 +78,8 @@ describe('CreateUser', () => {
         rg: '123456781',
         birth: new Date(),
         gender: 'M',
+        avatar_id: '',
+        documents_ids: [''],
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -81,6 +95,8 @@ describe('CreateUser', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      avatar_id: '',
+      documents_ids: [''],
     });
 
     await expect(
@@ -94,6 +110,8 @@ describe('CreateUser', () => {
         rg: '123456781',
         birth: new Date(),
         gender: 'M',
+        avatar_id: '',
+        documents_ids: [''],
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

@@ -1,12 +1,16 @@
 import AppError from '@shared/errors/AppError';
 
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
+import FakeTempFilesRepository from '@modules/tempfiles/repositories/fakes/FakeTempFilesRepository';
+import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import AuthenticateUserService from './AuthenticateUserService';
 import CreateUserService from './CreateUserService';
 
 let fakeMailProvider: FakeMailProvider;
+let fakeTempFilesRepository: FakeTempFilesRepository;
+let fakeStorageProvider: FakeStorageProvider;
 let fakeHashProvider: FakeHashProvider;
 let fakeUsersRepository: FakeUsersRepository;
 let createUserService: CreateUserService;
@@ -15,13 +19,17 @@ let authenticateUserService: AuthenticateUserService;
 describe('AuthenticateUser', () => {
   beforeEach(() => {
     fakeMailProvider = new FakeMailProvider();
+    fakeTempFilesRepository = new FakeTempFilesRepository();
+    fakeStorageProvider = new FakeStorageProvider();
     fakeHashProvider = new FakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
 
     createUserService = new CreateUserService(
       fakeUsersRepository,
+      fakeTempFilesRepository,
       fakeMailProvider,
       fakeHashProvider,
+      fakeStorageProvider,
     );
 
     authenticateUserService = new AuthenticateUserService(
@@ -41,6 +49,8 @@ describe('AuthenticateUser', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      avatar_id: '',
+      documents_ids: [''],
     });
 
     const response = await authenticateUserService.execute({
@@ -72,6 +82,8 @@ describe('AuthenticateUser', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      avatar_id: '',
+      documents_ids: [''],
     });
 
     await expect(

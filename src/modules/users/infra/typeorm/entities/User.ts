@@ -42,6 +42,9 @@ class User {
   @Column()
   gender: string;
 
+  @Column()
+  status_id: number;
+
   @OneToOne(() => UserAccountStatus)
   @JoinColumn({ name: 'status_id' })
   status: number;

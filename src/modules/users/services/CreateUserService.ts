@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { injectable, inject } from 'tsyringe';
 import path from 'path';
 
 import AppError from '@shared/errors/AppError';
 
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import ITempFilesRepository from '@modules/tempfiles/repositories/ITempFilesRepository';
+import TempFile from '@modules/tempfiles/infra/typeorm/schemas/TempFile';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 
@@ -19,6 +23,8 @@ interface IRequest {
   rg: string;
   birth: Date;
   gender: string;
+  avatar_id: string;
+  documents_ids: string[];
 }
 
 @injectable()
@@ -27,11 +33,17 @@ class CreateUserService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
+    @inject('TempFilesRepository')
+    private tempFilesRepository: ITempFilesRepository,
+
     @inject('MailProvider')
     private mailProvider: IMailProvider,
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
+
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider,
   ) {}
 
   public async execute({
@@ -44,6 +56,8 @@ class CreateUserService {
     rg,
     birth,
     gender,
+    avatar_id,
+    documents_ids,
   }: IRequest): Promise<User> {
     const checkEmailExists = await this.usersRepository.findByEmail(email);
 
@@ -57,6 +71,47 @@ class CreateUserService {
 
     if (checkUsernameExists) {
       throw new AppError('Username already used.');
+    }
+
+    if (!documents_ids) {
+      throw new AppError('Please, fill documents field');
+    }
+
+    const avatar = await this.tempFilesRepository.findById(avatar_id);
+
+    if (avatar_id && !avatar) {
+      throw new AppError('Avatar not found');
+    }
+
+    const documents = await this.tempFilesRepository.listInIds(documents_ids);
+
+    if (!documents_ids) {
+      throw new AppError('Documents not found');
+    }
+
+    if (avatar) {
+      await this.storageProvider.saveFile(avatar.key);
+      await this.tempFilesRepository.delete(avatar_id);
+    }
+
+    if (documents.length === documents_ids.length) {
+      const saveDocumentsPromise: any = [];
+
+      documents.forEach((document: TempFile) => {
+        saveDocumentsPromise.push(this.storageProvider.saveFile(document.key));
+      });
+
+      await Promise.all(saveDocumentsPromise);
+
+      const deleteDocumentsPromise: any = [];
+
+      documents.forEach((document: TempFile) => {
+        deleteDocumentsPromise.push(
+          this.tempFilesRepository.delete(document.id.toString()),
+        );
+      });
+
+      await Promise.all(deleteDocumentsPromise);
     }
 
     const password_hash = await this.hashProvider.generateHash(password);

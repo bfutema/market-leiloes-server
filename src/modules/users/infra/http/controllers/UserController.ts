@@ -15,11 +15,13 @@ export default class UserController {
       rg,
       birth,
       gender,
+      avatar_id,
+      documents_ids,
     } = request.body;
 
-    const createUser = container.resolve(CreateUserService);
+    const createUserService = container.resolve(CreateUserService);
 
-    const user = await createUser.execute({
+    const user = await createUserService.execute({
       username,
       email,
       password,
@@ -29,6 +31,8 @@ export default class UserController {
       rg,
       birth,
       gender,
+      avatar_id,
+      documents_ids,
     });
 
     delete user.password_hash;
