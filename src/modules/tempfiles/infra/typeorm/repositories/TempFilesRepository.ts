@@ -1,4 +1,5 @@
 import { getMongoRepository, MongoRepository } from 'typeorm';
+import { ObjectID } from 'mongodb';
 
 import ITempFilesRepository from '@modules/tempfiles/repositories/ITempFilesRepository';
 import ICreateTempFileFTO from '@modules/tempfiles/dtos/ICreateTempFileDTO';
@@ -33,9 +34,21 @@ class TempFilesRepository implements ITempFilesRepository {
   }
 
   public async findById(id: string): Promise<TempFile | undefined> {
-    const findTempFile = this.ormRepository.findOne(id);
+    const findTempFile = await this.ormRepository.findOne({
+      where: { _id: new ObjectID(id) },
+    });
 
     return findTempFile;
+  }
+
+  public async listInIds(ids: string[]): Promise<TempFile[] | []> {
+    const objectIds = ids.map(id => new ObjectID(id));
+
+    const findTempFiles = this.ormRepository.find({
+      where: { _id: { $in: objectIds } },
+    });
+
+    return findTempFiles;
   }
 
   public async delete(id: string): Promise<void> {
