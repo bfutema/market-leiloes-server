@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { injectable, inject } from 'tsyringe';
+import { injectable, inject, container } from 'tsyringe';
 import path from 'path';
 
 import AppError from '@shared/errors/AppError';
@@ -8,8 +8,11 @@ import IMailProvider from '@shared/container/providers/MailProvider/models/IMail
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import ITempFilesRepository from '@modules/tempfiles/repositories/ITempFilesRepository';
 import TempFile from '@modules/tempfiles/infra/typeorm/schemas/TempFile';
+import IUserDocumentsRepository from '@modules/users/repositories/IUserDocumentsRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
+
+import CreateUserDocumentService from './CreateUserDocumentService';
 
 import User from '../infra/typeorm/entities/User';
 
@@ -44,6 +47,9 @@ class CreateUserService {
 
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
+
+    @inject('UserDocumentsRepository')
+    private userDocumentsRepository: IUserDocumentsRepository,
   ) {}
 
   public async execute({
@@ -89,9 +95,31 @@ class CreateUserService {
       throw new AppError('Documents not found');
     }
 
+    const password_hash = await this.hashProvider.generateHash(password);
+
+    const user = await this.usersRepository.create({
+      username,
+      email,
+      password_hash,
+      name,
+      surname,
+      cpf_cnpj,
+      rg,
+      birth,
+      gender,
+    });
+
     if (avatar) {
       await this.storageProvider.saveFile(avatar.key);
       await this.tempFilesRepository.delete(avatar_id);
+
+      await this.userDocumentsRepository.create({
+        name: avatar.name,
+        size: avatar.size,
+        key: avatar.key,
+        url: avatar.url,
+        user_id: user.id,
+      });
     }
 
     if (documents.length === documents_ids.length) {
@@ -112,21 +140,23 @@ class CreateUserService {
       });
 
       await Promise.all(deleteDocumentsPromise);
+
+      const createDocuments: any = [];
+
+      documents.forEach((document: TempFile) => {
+        createDocuments.push(
+          this.userDocumentsRepository.create({
+            name: document.name,
+            size: document.size,
+            key: document.key,
+            url: document.url,
+            user_id: user.id,
+          }),
+        );
+      });
+
+      await Promise.all(createDocuments);
     }
-
-    const password_hash = await this.hashProvider.generateHash(password);
-
-    const user = await this.usersRepository.create({
-      username,
-      email,
-      password_hash,
-      name,
-      surname,
-      cpf_cnpj,
-      rg,
-      birth,
-      gender,
-    });
 
     const welcomeNewUserTemplate = path.resolve(
       __dirname,

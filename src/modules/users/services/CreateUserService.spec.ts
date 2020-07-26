@@ -1,6 +1,7 @@
 import AppError from '@shared/errors/AppError';
 
 import FakeTempFilesRepository from '@modules/tempfiles/repositories/fakes/FakeTempFilesRepository';
+import FakeUserDocumentsRepository from '@modules/users/repositories/fakes/FakeUserDocumentsRepository';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
@@ -8,6 +9,7 @@ import FakeUserRepository from '../repositories/fakes/FakeUsersRepository';
 import CreateUserService from './CreateUserService';
 
 let fakeTempFilesRepository: FakeTempFilesRepository;
+let fakeUserDocumentsRepository: FakeUserDocumentsRepository;
 let fakeMailProvider: FakeMailProvider;
 let fakeStorageProvider: FakeStorageProvider;
 let fakeHashProvider: FakeHashProvider;
@@ -17,6 +19,7 @@ let createUserService: CreateUserService;
 describe('CreateUser', () => {
   beforeEach(() => {
     fakeTempFilesRepository = new FakeTempFilesRepository();
+    fakeUserDocumentsRepository = new FakeUserDocumentsRepository();
     fakeMailProvider = new FakeMailProvider();
     fakeHashProvider = new FakeHashProvider();
     fakeStorageProvider = new FakeStorageProvider();
@@ -28,6 +31,7 @@ describe('CreateUser', () => {
       fakeMailProvider,
       fakeHashProvider,
       fakeStorageProvider,
+      fakeUserDocumentsRepository,
     );
   });
 

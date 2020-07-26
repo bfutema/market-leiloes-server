@@ -44,7 +44,7 @@ class TempFilesRepository implements ITempFilesRepository {
   public async listInIds(ids: string[]): Promise<TempFile[] | []> {
     const objectIds = ids.map(id => new ObjectID(id));
 
-    const findTempFiles = this.ormRepository.find({
+    const findTempFiles = await this.ormRepository.find({
       where: { _id: { $in: objectIds } },
     });
 
