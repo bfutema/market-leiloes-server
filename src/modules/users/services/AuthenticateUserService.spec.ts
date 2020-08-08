@@ -3,6 +3,7 @@ import AppError from '@shared/errors/AppError';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import FakeTempFilesRepository from '@modules/tempfiles/repositories/fakes/FakeTempFilesRepository';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
+import FakeUserDocumentsRepository from '../repositories/fakes/FakeUserDocumentsRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import AuthenticateUserService from './AuthenticateUserService';
@@ -11,6 +12,7 @@ import CreateUserService from './CreateUserService';
 let fakeMailProvider: FakeMailProvider;
 let fakeTempFilesRepository: FakeTempFilesRepository;
 let fakeStorageProvider: FakeStorageProvider;
+let fakeUserDocumentsRepository: FakeUserDocumentsRepository;
 let fakeHashProvider: FakeHashProvider;
 let fakeUsersRepository: FakeUsersRepository;
 let createUserService: CreateUserService;
@@ -21,6 +23,7 @@ describe('AuthenticateUser', () => {
     fakeMailProvider = new FakeMailProvider();
     fakeTempFilesRepository = new FakeTempFilesRepository();
     fakeStorageProvider = new FakeStorageProvider();
+    fakeUserDocumentsRepository = new FakeUserDocumentsRepository();
     fakeHashProvider = new FakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
 
@@ -30,6 +33,7 @@ describe('AuthenticateUser', () => {
       fakeMailProvider,
       fakeHashProvider,
       fakeStorageProvider,
+      fakeUserDocumentsRepository,
     );
 
     authenticateUserService = new AuthenticateUserService(

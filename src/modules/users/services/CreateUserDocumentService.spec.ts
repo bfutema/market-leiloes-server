@@ -3,9 +3,9 @@ import AppError from '@shared/errors/AppError';
 import FakeTempFilesRepository from '@modules/tempfiles/repositories/fakes/FakeTempFilesRepository';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
+import FakeUserDocumentsRepository from '../repositories/fakes/FakeUserDocumentsRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import FakeUserRepository from '../repositories/fakes/FakeUsersRepository';
-import FakeUserDocumentsRepository from '../repositories/fakes/FakeUserDocumentsRepository';
 import CreateUserDocumentService from './CreateUserDocumentService';
 import CreateUserService from './CreateUserService';
 
@@ -38,6 +38,7 @@ describe('CreateUserDocument', () => {
       fakeMailProvider,
       fakeHashProvider,
       fakeStorageProvider,
+      fakeUserDocumentsRepository,
     );
   });
 

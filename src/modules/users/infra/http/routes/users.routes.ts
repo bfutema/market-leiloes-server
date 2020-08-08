@@ -18,6 +18,7 @@ usersRouter.post('/', userController.create);
 
 usersRouter.use(ensureAuthenticated);
 
+usersRouter.get('/', userController.index);
 usersRouter.post('/account_status', userAccountStatusController.create);
 usersRouter.patch(
   '/avatar',
