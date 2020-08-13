@@ -1,7 +1,5 @@
 import { injectable, inject } from 'tsyringe';
 
-import AppError from '@shared/errors/AppError';
-
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {

@@ -18,18 +18,18 @@ class ListCandidatesService {
   public async execute({ status_id }: IRequest): Promise<User[]> {
     switch (status_id) {
       case '1': {
-        const candidates = await this.usersRepository.list();
+        const candidates = await this.usersRepository.find();
 
         return candidates;
       }
 
       case '2': {
-        const users = await this.usersRepository.list();
+        const users = await this.usersRepository.find();
         return users;
       }
 
       default: {
-        const users = await this.usersRepository.list();
+        const users = await this.usersRepository.find();
 
         return users;
       }

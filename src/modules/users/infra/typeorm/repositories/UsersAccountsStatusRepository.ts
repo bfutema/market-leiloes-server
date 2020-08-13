@@ -19,14 +19,23 @@ class UsersAccountsStatusRepository implements IUsersAccountsStatusRepository {
     return userAccountStatus;
   }
 
-  public async findByDescription(description: string): Promise<UserAccountStatus | undefined> {
-    const userAccountStatus = this.ormRepository.findOne({ where: { description } });
+  public async findByDescription(
+    description: string,
+  ): Promise<UserAccountStatus | undefined> {
+    const userAccountStatus = this.ormRepository.findOne({
+      where: { description },
+    });
 
     return userAccountStatus;
   }
 
-  public async save(userAccountStatus: UserAccountStatus): Promise<UserAccountStatus> {
-    return await this.ormRepository.save(userAccountStatus);
+  public async save(
+    userAccountStatus: UserAccountStatus,
+  ): Promise<UserAccountStatus> {
+    const usersAccountsStatus = await this.ormRepository.save(
+      userAccountStatus,
+    );
+    return usersAccountsStatus;
   }
 }
 

@@ -1,8 +1,8 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository, Not } from 'typeorm';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-import IFindAllBiddersDTO from '@modules/users/dtos/IFindAllBiddersDTO';
+import IFindAllCandidatesDTO from '@modules/users/dtos/IFindAllCandidatesDTO';
 
 import User from '../entities/User';
 
@@ -19,6 +19,12 @@ class UsersRepository implements IUsersRepository {
     await this.ormRepository.save(user);
 
     return user;
+  }
+
+  public async find(): Promise<User[] | []> {
+    const users = await this.ormRepository.find();
+
+    return users;
   }
 
   public async findById(id: string): Promise<User | undefined> {
@@ -39,18 +45,22 @@ class UsersRepository implements IUsersRepository {
     return findUser;
   }
 
-  public async listCandidates(): Promise<User[] | []> {
-    const candidates = await this.ormRepository.find({
-      where: { status_id: 1 },
-    });
+  public async findAllCandidates(
+    exept_user_id: IFindAllCandidatesDTO,
+  ): Promise<User[] | []> {
+    let candidates;
+
+    if (exept_user_id) {
+      candidates = await this.ormRepository.find({
+        where: { status_id: 1 },
+      });
+    } else {
+      candidates = await this.ormRepository.find({
+        where: { status_id: 1, id: Not(exept_user_id) },
+      });
+    }
 
     return candidates;
-  }
-
-  public async list(): Promise<User[] | []> {
-    const users = await this.ormRepository.find();
-
-    return users;
   }
 
   public async save(user: User): Promise<User> {
