@@ -6,8 +6,10 @@ import {
   UpdateDateColumn,
   JoinColumn,
   OneToOne,
+  OneToMany,
 } from 'typeorm';
 
+import UserDocument from './UserDocument';
 import UserAccountStatus from './UserAccountStatus';
 
 @Entity('users')
@@ -47,10 +49,13 @@ class User {
 
   @OneToOne(() => UserAccountStatus)
   @JoinColumn({ name: 'status_id' })
-  status: number;
+  status: UserAccountStatus;
 
   @Column()
   avatar: string;
+
+  // @OneToMany(() => UserDocument, document => document.id)
+  // documents: UserDocument[];
 
   @CreateDateColumn()
   created_at: Date;

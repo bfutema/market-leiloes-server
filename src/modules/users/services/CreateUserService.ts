@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { injectable, inject, container } from 'tsyringe';
+import { injectable, inject } from 'tsyringe';
 import path from 'path';
 
 import AppError from '@shared/errors/AppError';
@@ -11,8 +11,6 @@ import TempFile from '@modules/tempfiles/infra/typeorm/schemas/TempFile';
 import IUserDocumentsRepository from '@modules/users/repositories/IUserDocumentsRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
-
-import CreateUserDocumentService from './CreateUserDocumentService';
 
 import User from '../infra/typeorm/entities/User';
 

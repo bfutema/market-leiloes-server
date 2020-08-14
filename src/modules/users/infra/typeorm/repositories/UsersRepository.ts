@@ -21,7 +21,7 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  public async find(): Promise<User[] | []> {
+  public async find(): Promise<User[]> {
     const users = await this.ormRepository.find();
 
     return users;
@@ -47,16 +47,18 @@ class UsersRepository implements IUsersRepository {
 
   public async findAllCandidates(
     exept_user_id: IFindAllCandidatesDTO,
-  ): Promise<User[] | []> {
+  ): Promise<User[]> {
     let candidates;
 
     if (exept_user_id) {
       candidates = await this.ormRepository.find({
         where: { status_id: 1 },
+        relations: ['status'],
       });
     } else {
       candidates = await this.ormRepository.find({
         where: { status_id: 1, id: Not(exept_user_id) },
+        relations: ['status'],
       });
     }
 
