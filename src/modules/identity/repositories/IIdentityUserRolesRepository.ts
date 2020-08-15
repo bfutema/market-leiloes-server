@@ -4,6 +4,7 @@ import ICreateIdentityUserRoleDTO from '@modules/identity/dtos/ICreateIdentityUs
 
 export default interface IIdentityUserRolesRepository {
   create(data: ICreateIdentityUserRoleDTO): Promise<IdentityUserRole>;
+  find(): Promise<IdentityUserRole[]>;
   findByUserId(user_id: string): Promise<IdentityUserRole[]>;
   findByRoleId(role_id: number): Promise<IdentityUserRole[]>;
   findByUserIdAndRoleId(

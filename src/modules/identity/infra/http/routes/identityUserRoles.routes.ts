@@ -9,6 +9,7 @@ const identityUserRolesController = new IdentityUserRolesController();
 
 identityUserRolesRouter.use(ensureAuthenticated);
 
+identityUserRolesRouter.get('/', identityUserRolesController.index);
 identityUserRolesRouter.post('/', identityUserRolesController.create);
 
 export default identityUserRolesRouter;

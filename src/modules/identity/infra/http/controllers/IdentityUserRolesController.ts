@@ -1,9 +1,20 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import ListIdentityUserRolesService from '@modules/identity/services/ListIdentityUserRolesService';
 import CreateIdentityUserRoleService from '@modules/identity/services/CreateIdentityUserRoleService';
 
 class IdentityUserRolesController {
+  public async index(request: Request, response: Response): Promise<Response> {
+    const listIdentityUserRolesService = container.resolve(
+      ListIdentityUserRolesService,
+    );
+
+    const identityUserRoles = await listIdentityUserRolesService.execute();
+
+    return response.json(identityUserRoles);
+  }
+
   public async create(request: Request, response: Response): Promise<Response> {
     const { user_id, role_id } = request.body;
 
