@@ -21,6 +21,9 @@ import TempFilesRepository from '@modules/tempfiles/infra/typeorm/repositories/T
 import IIdentityRolesRepository from '@modules/identity/repositories/IIdentityRolesRepository';
 import IdentityRolesRepository from '@modules/identity/infra/typeorm/repositories/IdentityRolesRepository';
 
+import IIdentityUserRolesRepository from '@modules/identity/repositories/IIdentityUserRolesRepository';
+import IdentityUserRolesRepository from '@modules/identity/infra/typeorm/repositories/IdentityUserRolesRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -49,4 +52,9 @@ container.registerSingleton<ITempFilesRepository>(
 container.registerSingleton<IIdentityRolesRepository>(
   'IdentityRolesRepository',
   IdentityRolesRepository,
+);
+
+container.registerSingleton<IIdentityUserRolesRepository>(
+  'IdentityUserRolesRepository',
+  IdentityUserRolesRepository,
 );

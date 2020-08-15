@@ -3,6 +3,7 @@ import { Router } from 'express';
 import candidatesRouter from '@modules/admins/infra/http/routes/candidates.routes';
 
 import idendityRolesRouter from '@modules/identity/infra/http/routes/identityRoles.routes';
+import idendityUserRolesRouter from '@modules/identity/infra/http/routes/identityUserRoles.routes';
 
 import tempFilesRouter from '@modules/tempfiles/infra/http/routes/temFiles.routes';
 
@@ -16,7 +17,8 @@ const routes = Router();
 
 routes.use('/candidates', candidatesRouter);
 
-routes.use('/identityroles', idendityRolesRouter);
+routes.use('/identity/roles', idendityRolesRouter);
+routes.use('/identity/user-roles', idendityUserRolesRouter);
 
 routes.use('/tempfiles', tempFilesRouter);
 
