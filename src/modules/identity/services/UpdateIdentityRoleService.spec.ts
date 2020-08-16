@@ -2,16 +2,16 @@ import AppError from '@shared/errors/AppError';
 
 import FakeIdentityRolesRepository from '@modules/identity/repositories/fakes/FakeIdentityRolesRepository';
 
-import UpdateIdentityRolesService from '@modules/identity/services/UpdateIdentityRoleService';
+import UpdateIdentityRoleService from '@modules/identity/services/UpdateIdentityRoleService';
 
 let fakeIdentityRolesRepository: FakeIdentityRolesRepository;
-let updateIdentityRolesService: UpdateIdentityRolesService;
+let updateIdentityRoleService: UpdateIdentityRoleService;
 
 describe('UpdateIdentityRoles', () => {
   beforeEach(() => {
     fakeIdentityRolesRepository = new FakeIdentityRolesRepository();
 
-    updateIdentityRolesService = new UpdateIdentityRolesService(
+    updateIdentityRoleService = new UpdateIdentityRoleService(
       fakeIdentityRolesRepository,
     );
   });
@@ -21,7 +21,7 @@ describe('UpdateIdentityRoles', () => {
       name: 'Admin',
     });
 
-    await updateIdentityRolesService.execute({
+    await updateIdentityRoleService.execute({
       id: identityRole.id,
       name: 'SuperAdmin',
     });
@@ -31,7 +31,7 @@ describe('UpdateIdentityRoles', () => {
 
   it('should not be able to update non existing identity role', async () => {
     await expect(
-      updateIdentityRolesService.execute({
+      updateIdentityRoleService.execute({
         id: 0,
         name: 'SuperAdmin',
       }),

@@ -3,6 +3,7 @@ import IIdentityUserRolesRepository from '@modules/identity/repositories/IIdenti
 import IdentityUserRole from '@modules/identity/infra/typeorm/entities/IdentityUserRole';
 
 import ICreateIdentityUserRoleDTO from '@modules/identity/dtos/ICreateIdentityUserRoleDTO';
+import IFindIdentityUserRoleDTO from '@modules/identity/dtos/IFindIdentityUserRoleDTO';
 
 class FakeIdentityUserRolesRepository implements IIdentityUserRolesRepository {
   private identityUserRoles: IdentityUserRole[] = [];
@@ -40,10 +41,10 @@ class FakeIdentityUserRolesRepository implements IIdentityUserRolesRepository {
     return findIdentityUserRoles;
   }
 
-  public async findByUserIdAndRoleId(
-    user_id: string,
-    role_id: number,
-  ): Promise<IdentityUserRole | undefined> {
+  public async findByUserIdAndRoleId({
+    user_id,
+    role_id,
+  }: IFindIdentityUserRoleDTO): Promise<IdentityUserRole | undefined> {
     const findIdentityUserRole = this.identityUserRoles.find(
       identityUserRole =>
         identityUserRole.user_id === user_id &&
@@ -51,6 +52,14 @@ class FakeIdentityUserRolesRepository implements IIdentityUserRolesRepository {
     );
 
     return findIdentityUserRole;
+  }
+
+  public async delete(id: number): Promise<void> {
+    const findIndex = this.identityUserRoles.findIndex(
+      findIdentityUserRole => findIdentityUserRole.id === id,
+    );
+
+    this.identityUserRoles.splice(findIndex, 1);
   }
 
   public async save(

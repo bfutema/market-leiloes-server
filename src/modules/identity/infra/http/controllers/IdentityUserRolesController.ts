@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 
 import ListIdentityUserRolesService from '@modules/identity/services/ListIdentityUserRolesService';
 import CreateIdentityUserRoleService from '@modules/identity/services/CreateIdentityUserRoleService';
+import DeleteIdentityUserRoleService from '@modules/identity/services/DeleteIdentityUserRoleService';
 
 class IdentityUserRolesController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -28,6 +29,21 @@ class IdentityUserRolesController {
     });
 
     return response.json(identityUserRole);
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { user_id, role_id } = request.params;
+
+    const deleteIdentityUserRoleService = container.resolve(
+      DeleteIdentityUserRoleService,
+    );
+
+    await deleteIdentityUserRoleService.execute({
+      user_id,
+      role_id: Number(role_id),
+    });
+
+    return response.send();
   }
 }
 

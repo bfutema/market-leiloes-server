@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 
 import ListIdentityRolesService from '@modules/identity/services/ListIdentityRolesService';
 import CreateIdentityRoleService from '@modules/identity/services/CreateIdentityRoleService';
+import UpdateIdentityRoleService from '@modules/identity/services/UpdateIdentityRoleService';
 
 class IdentityRolesController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -27,6 +28,21 @@ class IdentityRolesController {
     });
 
     return response.json(identityRole);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id, name } = request.body;
+
+    const updateIdentityRoleService = container.resolve(
+      UpdateIdentityRoleService,
+    );
+
+    const updatedIdentityRole = await updateIdentityRoleService.execute({
+      id,
+      name,
+    });
+
+    return response.json(updatedIdentityRole);
   }
 }
 

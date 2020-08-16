@@ -2,6 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 
 import IIdentityUserRolesRepository from '@modules/identity/repositories/IIdentityUserRolesRepository';
 import ICreateIdentityUserRoleDTO from '@modules/identity/dtos/ICreateIdentityUserRoleDTO';
+import IFindIdentityUserRoleDTO from '@modules/identity/dtos/IFindIdentityUserRoleDTO';
 
 import IdentityUserRole from '../entities/IdentityUserRole';
 
@@ -44,15 +45,19 @@ class IdentityUserRolesRepository implements IIdentityUserRolesRepository {
     return findIdentityUserRoles;
   }
 
-  public async findByUserIdAndRoleId(
-    user_id: string,
-    role_id: number,
-  ): Promise<IdentityUserRole | undefined> {
+  public async findByUserIdAndRoleId({
+    user_id,
+    role_id,
+  }: IFindIdentityUserRoleDTO): Promise<IdentityUserRole | undefined> {
     const findIdentityUserRole = await this.ormRepository.findOne({
       where: { user_id, role_id },
     });
 
     return findIdentityUserRole;
+  }
+
+  public async delete(id: number): Promise<void> {
+    await this.ormRepository.delete(id);
   }
 
   public async save(

@@ -23,8 +23,10 @@ class CreateIdentityUserRoleService {
     role_id,
   }: IRequest): Promise<IdentityUserRole> {
     const checkAssociate = await this.identityUserRolesRepository.findByUserIdAndRoleId(
-      user_id,
-      role_id,
+      {
+        user_id,
+        role_id,
+      },
     );
 
     if (checkAssociate) {

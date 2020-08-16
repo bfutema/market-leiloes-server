@@ -11,5 +11,9 @@ identityUserRolesRouter.use(ensureAuthenticated);
 
 identityUserRolesRouter.get('/', identityUserRolesController.index);
 identityUserRolesRouter.post('/', identityUserRolesController.create);
+identityUserRolesRouter.delete(
+  '/:user_id/:role_id',
+  identityUserRolesController.delete,
+);
 
 export default identityUserRolesRouter;

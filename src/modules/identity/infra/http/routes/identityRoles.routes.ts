@@ -11,5 +11,6 @@ identityRolesRouter.use(ensureAuthenticated);
 
 identityRolesRouter.get('/', identityRolesController.index);
 identityRolesRouter.post('/', identityRolesController.create);
+identityRolesRouter.put('/', identityRolesController.update);
 
 export default identityRolesRouter;
