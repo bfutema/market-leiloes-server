@@ -21,6 +21,14 @@ class FakeIdentityRolesRepository implements IIdentityRolesRepository {
     return this.identityRoles;
   }
 
+  public async findById(id: number): Promise<IdentityRole | undefined> {
+    const findIdentityRole = this.identityRoles.find(
+      identityRole => identityRole.id === id,
+    );
+
+    return findIdentityRole;
+  }
+
   public async findByName(name: string): Promise<IdentityRole[]> {
     const findIdentityRoles = this.identityRoles.filter(identityRole =>
       identityRole.name.toUpperCase().includes(name.toUpperCase()),

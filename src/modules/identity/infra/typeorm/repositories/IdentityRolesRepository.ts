@@ -28,6 +28,14 @@ class IdentityRolesRepository implements IIdentityRolesRepository {
     return identityRoles;
   }
 
+  public async findById(id: number): Promise<IdentityRole | undefined> {
+    const findIdentityRole = await this.ormRepository.findOne({
+      where: { id },
+    });
+
+    return findIdentityRole;
+  }
+
   public async findByName(name: string): Promise<IdentityRole[]> {
     const findIdentityRoles = await this.ormRepository.find({
       where: { name: Like(name) },

@@ -1,3 +1,5 @@
+import TempFile from '@modules/tempfiles/infra/typeorm/schemas/TempFile';
+
 import fs from 'fs';
 import path from 'path';
 import uploadConfig from '@config/upload';
@@ -11,6 +13,17 @@ class DiskStorageProvider implements IStorageProvider {
     );
 
     return file;
+  }
+
+  public async saveFiles(files: TempFile[]): Promise<void> {
+    const filesPromise = files.map((file: TempFile) =>
+      fs.promises.rename(
+        path.resolve(uploadConfig.tmpFolder, file.key),
+        path.resolve(uploadConfig.uploadsFolder, file.key),
+      ),
+    );
+
+    await Promise.all(filesPromise);
   }
 
   public async deleteTempFile(file: string): Promise<void> {

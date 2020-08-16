@@ -26,7 +26,7 @@ class FakeTempFilesRepository implements ITempFilesRepository {
     return findTempFile;
   }
 
-  public async listInIds(ids: string[]): Promise<TempFile[] | []> {
+  public async listInIds(ids: string[]): Promise<TempFile[]> {
     const findTempFiles = this.files.filter(
       tempFile => ids.indexOf(tempFile.id.toString()) !== -1,
     );
@@ -40,6 +40,16 @@ class FakeTempFilesRepository implements ITempFilesRepository {
     );
 
     this.files.splice(tempFileIndex, 1);
+  }
+
+  public async deleteFiles(files: TempFile[]): Promise<void> {
+    const deleteDocumentsPromise = files.map((document: TempFile) =>
+      this.files.findIndex(
+        tempFile => tempFile.id === new ObjectID(document.id.toString()),
+      ),
+    );
+
+    await Promise.all(deleteDocumentsPromise);
   }
 }
 

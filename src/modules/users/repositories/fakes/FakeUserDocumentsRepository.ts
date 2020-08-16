@@ -20,6 +20,24 @@ class FakeUserDocumentsRepository implements IUserDocumentsRepository {
     return userDocument;
   }
 
+  public async createFiles(
+    userDocumentsData: UserDocument[],
+  ): Promise<UserDocument[]> {
+    const userDocuments = userDocumentsData.map(
+      (userDocumentData: UserDocument) => {
+        const userDocument = new UserDocument();
+
+        Object.assign(userDocument, { id: uuid() }, userDocumentData);
+
+        this.userDocuments.push(userDocument);
+
+        return userDocument;
+      },
+    );
+
+    return userDocuments;
+  }
+
   public async findById(id: string): Promise<UserDocument | undefined> {
     const findUserDocument = this.userDocuments.find(
       userDocument => userDocument.id === id,

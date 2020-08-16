@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { injectable, inject } from 'tsyringe';
 import path from 'path';
 
 import AppError from '@shared/errors/AppError';
+
+import ICreateUserDocumentDTO from '@modules/users/dtos/ICreateUserDocumentDTO';
 
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
@@ -13,6 +14,7 @@ import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 import User from '../infra/typeorm/entities/User';
+import UserDocument from '../infra/typeorm/entities/UserDocument';
 
 interface IRequest {
   username: string;
@@ -77,22 +79,8 @@ class CreateUserService {
       throw new AppError('Username already used.');
     }
 
-    if (!documents_ids) {
-      throw new AppError('Please, fill documents field');
-    }
-
     const avatar = await this.tempFilesRepository.findById(avatar_id);
-
-    if (avatar_id && !avatar) {
-      throw new AppError('Avatar not found');
-    }
-
     const documents = await this.tempFilesRepository.listInIds(documents_ids);
-
-    if (!documents_ids) {
-      throw new AppError('Documents not found');
-    }
-
     const password_hash = await this.hashProvider.generateHash(password);
 
     const user = await this.usersRepository.create({
@@ -121,39 +109,33 @@ class CreateUserService {
     }
 
     if (documents.length === documents_ids.length) {
-      const saveDocumentsPromise: any = [];
+      await this.storageProvider.saveFiles(documents);
+      await this.tempFilesRepository.deleteFiles(documents);
 
-      documents.forEach((document: TempFile) => {
-        saveDocumentsPromise.push(this.storageProvider.saveFile(document.key));
-      });
-
-      await Promise.all(saveDocumentsPromise);
-
-      const deleteDocumentsPromise: any = [];
-
-      documents.forEach((document: TempFile) => {
-        deleteDocumentsPromise.push(
-          this.tempFilesRepository.delete(document.id.toString()),
-        );
-      });
-
-      await Promise.all(deleteDocumentsPromise);
-
-      const createDocuments: any = [];
-
-      documents.forEach((document: TempFile) => {
-        createDocuments.push(
-          this.userDocumentsRepository.create({
+      const docs: ICreateUserDocumentDTO[] = documents.map(
+        (document: TempFile) => {
+          return {
             name: document.name,
             size: document.size,
             key: document.key,
             url: document.url,
             user_id: user.id,
-          }),
-        );
-      });
+          };
+        },
+      );
 
-      await Promise.all(createDocuments);
+      await this.userDocumentsRepository.createFiles(docs);
+      // const createDocumentsPromise = documents.map((document: TempFile) =>
+      //   this.userDocumentsRepository.create({
+      // name: document.name,
+      // size: document.size,
+      // key: document.key,
+      // url: document.url,
+      // user_id: user.id,
+      //   }),
+      // );
+
+      // await Promise.all(createDocumentsPromise);
     }
 
     const welcomeNewUserTemplate = path.resolve(

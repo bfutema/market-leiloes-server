@@ -22,6 +22,18 @@ class UserDocumentsRepository implements IUserDocumentsRepository {
     return userDocument;
   }
 
+  public async createFiles(
+    userDocumentsData: ICreateUserDocumentDTO[],
+  ): Promise<UserDocument[]> {
+    const userDocuments = userDocumentsData.map(userDocumentData =>
+      this.ormRepository.create(userDocumentData),
+    );
+
+    await Promise.all(userDocuments);
+
+    return userDocuments;
+  }
+
   public async findById(id: string): Promise<UserDocument | undefined> {
     const userDocument = await this.ormRepository.findOne(id);
 
