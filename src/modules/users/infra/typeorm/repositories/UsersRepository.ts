@@ -45,19 +45,19 @@ class UsersRepository implements IUsersRepository {
     return findUser;
   }
 
-  public async findAllCandidates(
-    exept_user_id: IFindAllCandidatesDTO,
-  ): Promise<User[]> {
+  public async findAllCandidates({
+    except_user_id,
+  }: IFindAllCandidatesDTO): Promise<User[]> {
     let candidates;
 
-    if (exept_user_id) {
+    if (!except_user_id) {
       candidates = await this.ormRepository.find({
         where: { status_id: 1 },
         relations: ['status'],
       });
     } else {
       candidates = await this.ormRepository.find({
-        where: { status_id: 1, id: Not(exept_user_id) },
+        where: { status_id: 1, id: Not(except_user_id) },
         relations: ['status'],
       });
     }

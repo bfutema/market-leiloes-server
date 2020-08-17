@@ -62,24 +62,9 @@ describe('ListCandidates', () => {
       documents_ids: [''],
     });
 
-    const candidates = [
-      {
-        id: user.id.toString(),
-        username: 'JohnDoe',
-        email: 'johndoe@example.com',
-        password_hash: '123456',
-        name: 'John',
-        surname: 'Doe',
-        cpf_cnpj: '12345678910',
-        rg: '123456781',
-        birth,
-        gender: 'M',
-      },
-    ];
+    const users = await listUsersService.execute();
 
-    const users = await listUsersService.execute({});
-
-    expect(users).toEqual(candidates);
+    expect(users).toEqual([user]);
   });
 
   it('should be able to list users', async () => {
@@ -107,23 +92,8 @@ describe('ListCandidates', () => {
       documents_ids: [''],
     });
 
-    const usersExpect = [
-      {
-        id: user.id.toString(),
-        username: 'JohnDoe',
-        email: 'johndoe@example.com',
-        password_hash: '123456',
-        name: 'John',
-        surname: 'Doe',
-        cpf_cnpj: '12345678910',
-        rg: '123456781',
-        birth,
-        gender: 'M',
-      },
-    ];
+    const users = await listUsersService.execute();
 
-    const users = await listUsersService.execute({});
-
-    expect(users).toEqual(usersExpect);
+    expect(users).toEqual([user]);
   });
 });

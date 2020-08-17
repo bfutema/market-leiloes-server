@@ -16,7 +16,7 @@ class ListCandidatesService {
   ) {}
 
   public async execute({ user_id }: IRequest): Promise<User[]> {
-    const candidates = this.usersRepository.findAllCandidates({
+    const candidates = await this.usersRepository.findAllCandidates({
       except_user_id: user_id,
     });
 
