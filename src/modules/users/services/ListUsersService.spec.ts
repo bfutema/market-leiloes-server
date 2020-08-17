@@ -1,5 +1,6 @@
 import FakeTempFilesRepository from '@modules/tempfiles/repositories/fakes/FakeTempFilesRepository';
 import FakeUserDocumentsRepository from '@modules/users/repositories/fakes/FakeUserDocumentsRepository';
+import FakeUserAvatarsRepository from '@modules/users/repositories/fakes/FakeUserAvatarsRepository';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
@@ -9,6 +10,7 @@ import ListUsersService from './ListUsersService';
 
 let fakeTempFilesRepository: FakeTempFilesRepository;
 let fakeUserDocumentsRepository: FakeUserDocumentsRepository;
+let fakeUserAvatarsRepository: FakeUserAvatarsRepository;
 let fakeMailProvider: FakeMailProvider;
 let fakeStorageProvider: FakeStorageProvider;
 let fakeHashProvider: FakeHashProvider;
@@ -20,6 +22,7 @@ describe('ListCandidates', () => {
   beforeEach(() => {
     fakeTempFilesRepository = new FakeTempFilesRepository();
     fakeUserDocumentsRepository = new FakeUserDocumentsRepository();
+    fakeUserAvatarsRepository = new FakeUserAvatarsRepository();
     fakeMailProvider = new FakeMailProvider();
     fakeHashProvider = new FakeHashProvider();
     fakeStorageProvider = new FakeStorageProvider();
@@ -34,6 +37,7 @@ describe('ListCandidates', () => {
       fakeHashProvider,
       fakeStorageProvider,
       fakeUserDocumentsRepository,
+      fakeUserAvatarsRepository,
     );
   });
 

@@ -1,17 +1,17 @@
 import {
   Entity,
-  Column,
   PrimaryGeneratedColumn,
+  Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
+  OneToOne,
   JoinColumn,
 } from 'typeorm';
 
 import User from './User';
 
-@Entity('user_documents')
-class UserDocument {
+@Entity('users_avatar')
+class UserAvatar {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -30,7 +30,7 @@ class UserDocument {
   @Column()
   user_id: string;
 
-  @ManyToOne(() => User)
+  @OneToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
 
@@ -41,4 +41,4 @@ class UserDocument {
   updated_at: Date;
 }
 
-export default UserDocument;
+export default UserAvatar;

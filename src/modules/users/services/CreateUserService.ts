@@ -10,11 +10,11 @@ import IStorageProvider from '@shared/container/providers/StorageProvider/models
 import ITempFilesRepository from '@modules/tempfiles/repositories/ITempFilesRepository';
 import TempFile from '@modules/tempfiles/infra/typeorm/schemas/TempFile';
 import IUserDocumentsRepository from '@modules/users/repositories/IUserDocumentsRepository';
+import IUserAvatarsRepository from '@modules/users/repositories/IUserAvatarsRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 import User from '../infra/typeorm/entities/User';
-import UserDocument from '../infra/typeorm/entities/UserDocument';
 
 interface IRequest {
   username: string;
@@ -50,6 +50,9 @@ class CreateUserService {
 
     @inject('UserDocumentsRepository')
     private userDocumentsRepository: IUserDocumentsRepository,
+
+    @inject('UserAvatarsRepository')
+    private userAvatarsRepository: IUserAvatarsRepository,
   ) {}
 
   public async execute({
@@ -99,11 +102,11 @@ class CreateUserService {
       await this.storageProvider.saveFile(avatar.key);
       await this.tempFilesRepository.delete(avatar_id);
 
-      await this.userDocumentsRepository.create({
+      await this.userAvatarsRepository.create({
         name: avatar.name,
         size: avatar.size,
         key: avatar.key,
-        url: avatar.url,
+        url: avatar.url.replace('/tempfiles/', '/files/'),
         user_id: user.id,
       });
     }
@@ -118,24 +121,13 @@ class CreateUserService {
             name: document.name,
             size: document.size,
             key: document.key,
-            url: document.url,
+            url: document.url.replace('/tempfiles/', '/files/'),
             user_id: user.id,
           };
         },
       );
 
       await this.userDocumentsRepository.createFiles(docs);
-      // const createDocumentsPromise = documents.map((document: TempFile) =>
-      //   this.userDocumentsRepository.create({
-      // name: document.name,
-      // size: document.size,
-      // key: document.key,
-      // url: document.url,
-      // user_id: user.id,
-      //   }),
-      // );
-
-      // await Promise.all(createDocumentsPromise);
     }
 
     const welcomeNewUserTemplate = path.resolve(

@@ -6,13 +6,9 @@ import ListUsersService from '@modules/users/services/ListUsersService';
 
 export default class UserController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { status_id = '0' } = request.query;
-
     const listUsersService = container.resolve(ListUsersService);
 
-    const users = await listUsersService.execute({
-      status_id: status_id.toString(),
-    });
+    const users = await listUsersService.execute();
 
     return response.json(users);
   }

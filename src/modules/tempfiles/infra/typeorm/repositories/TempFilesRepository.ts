@@ -57,7 +57,7 @@ class TempFilesRepository implements ITempFilesRepository {
 
   public async deleteFiles(files: TempFile[]): Promise<void> {
     const deleteFilesPromise = files.map((file: TempFile) =>
-      this.ormRepository.delete(file.id),
+      this.ormRepository.delete(file.id.toString()),
     );
 
     await Promise.all(deleteFilesPromise);

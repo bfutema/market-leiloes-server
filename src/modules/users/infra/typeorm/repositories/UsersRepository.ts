@@ -22,25 +22,35 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async find(): Promise<User[]> {
-    const users = await this.ormRepository.find();
+    const users = await this.ormRepository.find({
+      relations: ['status', 'avatar', 'documents'],
+    });
 
     return users;
   }
 
   public async findById(id: string): Promise<User | undefined> {
-    const user = await this.ormRepository.findOne(id);
+    const user = await this.ormRepository.findOne(id, {
+      relations: ['status', 'avatar', 'documents'],
+    });
 
     return user;
   }
 
   public async findByEmail(email: string): Promise<User | undefined> {
-    const findUser = await this.ormRepository.findOne({ where: { email } });
+    const findUser = await this.ormRepository.findOne({
+      where: { email },
+      relations: ['status', 'avatar', 'documents'],
+    });
 
     return findUser;
   }
 
   public async findByUsername(username: string): Promise<User | undefined> {
-    const findUser = await this.ormRepository.findOne({ where: { username } });
+    const findUser = await this.ormRepository.findOne({
+      where: { username },
+      relations: ['status', 'avatar', 'documents'],
+    });
 
     return findUser;
   }

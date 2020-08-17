@@ -31,6 +31,12 @@ class UserDocumentsRepository implements IUserDocumentsRepository {
 
     await Promise.all(userDocuments);
 
+    const userDocumentsPromise = userDocuments.map(userDocument =>
+      this.ormRepository.save(userDocument),
+    );
+
+    await Promise.all(userDocumentsPromise);
+
     return userDocuments;
   }
 

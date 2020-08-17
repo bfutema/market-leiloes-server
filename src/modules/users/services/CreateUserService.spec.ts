@@ -2,6 +2,7 @@ import AppError from '@shared/errors/AppError';
 
 import FakeTempFilesRepository from '@modules/tempfiles/repositories/fakes/FakeTempFilesRepository';
 import FakeUserDocumentsRepository from '@modules/users/repositories/fakes/FakeUserDocumentsRepository';
+import FakeUserAvatarsRepository from '@modules/users/repositories/fakes/FakeUserAvatarsRepository';
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
@@ -10,6 +11,7 @@ import CreateUserService from './CreateUserService';
 
 let fakeTempFilesRepository: FakeTempFilesRepository;
 let fakeUserDocumentsRepository: FakeUserDocumentsRepository;
+let fakeUserAvatarsRepository: FakeUserAvatarsRepository;
 let fakeMailProvider: FakeMailProvider;
 let fakeStorageProvider: FakeStorageProvider;
 let fakeHashProvider: FakeHashProvider;
@@ -20,6 +22,7 @@ describe('CreateUser', () => {
   beforeEach(() => {
     fakeTempFilesRepository = new FakeTempFilesRepository();
     fakeUserDocumentsRepository = new FakeUserDocumentsRepository();
+    fakeUserAvatarsRepository = new FakeUserAvatarsRepository();
     fakeMailProvider = new FakeMailProvider();
     fakeHashProvider = new FakeHashProvider();
     fakeStorageProvider = new FakeStorageProvider();
@@ -32,6 +35,7 @@ describe('CreateUser', () => {
       fakeHashProvider,
       fakeStorageProvider,
       fakeUserDocumentsRepository,
+      fakeUserAvatarsRepository,
     );
   });
 
@@ -40,7 +44,7 @@ describe('CreateUser', () => {
 
     const saveFile = jest.spyOn(fakeStorageProvider, 'saveFile');
     const deleteFile = jest.spyOn(fakeTempFilesRepository, 'delete');
-    const createFile = jest.spyOn(fakeUserDocumentsRepository, 'create');
+    const createFile = jest.spyOn(fakeUserAvatarsRepository, 'create');
 
     const saveFiles = jest.spyOn(fakeStorageProvider, 'saveFiles');
     const deleteFiles = jest.spyOn(fakeTempFilesRepository, 'deleteFiles');
