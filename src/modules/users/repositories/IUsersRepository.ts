@@ -1,7 +1,7 @@
 import User from '../infra/typeorm/entities/User';
 
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
-import IFindAllCandidatesDTO from '../dtos/IFindAllCandidatesDTO';
+import IFindAllUsersDTO from '../dtos/IFindAllUsersDTO';
 
 export default interface IUsersRepositories {
   create(data: ICreateUserDTO): Promise<User>;
@@ -9,6 +9,8 @@ export default interface IUsersRepositories {
   findById(id: string): Promise<User | undefined>;
   findByEmail(email: string): Promise<User | undefined>;
   findByUsername(username: string): Promise<User | undefined>;
-  findAllCandidates(data: IFindAllCandidatesDTO): Promise<User[]>;
+  findAllCandidates(data: IFindAllUsersDTO): Promise<User[]>;
+  findAllBidders(data: IFindAllUsersDTO): Promise<User[]>;
+  findAllClients(data: IFindAllUsersDTO): Promise<User[]>;
   save(user: User): Promise<User>;
 }

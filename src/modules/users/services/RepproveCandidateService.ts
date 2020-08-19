@@ -23,6 +23,7 @@ class RepproveCandidateService {
     }
 
     user.status_id = 3;
+    delete user.status;
 
     await this.usersRepository.save(user);
   }

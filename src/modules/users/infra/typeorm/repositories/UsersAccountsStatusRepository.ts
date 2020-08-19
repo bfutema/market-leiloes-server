@@ -19,6 +19,12 @@ class UsersAccountsStatusRepository implements IUsersAccountsStatusRepository {
     return userAccountStatus;
   }
 
+  public async findById(id: number): Promise<UserAccountStatus | undefined> {
+    const userAccountStatus = await this.ormRepository.findOne(id);
+
+    return userAccountStatus;
+  }
+
   public async findByDescription(
     description: string,
   ): Promise<UserAccountStatus | undefined> {

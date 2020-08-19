@@ -34,6 +34,7 @@ describe('ResetPassword', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     const { token } = await fakeUserTokensRepository.generate(user.id);
@@ -84,6 +85,7 @@ describe('ResetPassword', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     const { token } = await fakeUserTokensRepository.generate(user.id);

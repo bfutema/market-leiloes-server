@@ -8,4 +8,5 @@ export default interface ICreateUserDTO {
   rg: string;
   birth: Date;
   gender: string;
+  account_type: string;
 }

@@ -30,6 +30,7 @@ describe('UpdateProfile', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     const updatedUser = await updateProfileService.execute({
@@ -80,6 +81,7 @@ describe('UpdateProfile', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     const user = await fakeUsersRepository.create({
@@ -92,6 +94,7 @@ describe('UpdateProfile', () => {
       rg: '123456782',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     await expect(
@@ -120,6 +123,7 @@ describe('UpdateProfile', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     const updatedUser = await updateProfileService.execute({
@@ -150,6 +154,7 @@ describe('UpdateProfile', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     await expect(
@@ -179,6 +184,7 @@ describe('UpdateProfile', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     await expect(

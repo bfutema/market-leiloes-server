@@ -1,18 +1,18 @@
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 
-import ListCandidatesService from './ListCandidatesService';
+import ListClientsService from './ListClientsService';
 
 let fakeUsersRepository: FakeUsersRepository;
-let listCandidatesService: ListCandidatesService;
+let listClientsService: ListClientsService;
 
-describe('ListCandidates', () => {
+describe('ListClients', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
 
-    listCandidatesService = new ListCandidatesService(fakeUsersRepository);
+    listClientsService = new ListClientsService(fakeUsersRepository);
   });
 
-  it('should be able to list users with suatus_id equals 1', async () => {
+  it('should be able to list clients', async () => {
     const client = await fakeUsersRepository.create({
       username: 'JohnDoe',
       email: 'johndoe@example.com',
@@ -52,7 +52,7 @@ describe('ListCandidates', () => {
       account_type: 'client',
     });
 
-    const candidates = await listCandidatesService.execute({
+    const candidates = await listClientsService.execute({
       user_id: loggedUser.id,
     });
 

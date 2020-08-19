@@ -18,6 +18,14 @@ class FakeUsersAccountsRepository implements IUsersAccountsStatusRepository {
     return userAccountStatus;
   }
 
+  public async findById(id: number): Promise<UserAccountStatus | undefined> {
+    const findUserAccountStatus = this.usersAccountsStatus.find(
+      userAccountStatus => userAccountStatus.id === id,
+    );
+
+    return findUserAccountStatus;
+  }
+
   public async findByDescription(
     description: string,
   ): Promise<UserAccountStatus | undefined> {

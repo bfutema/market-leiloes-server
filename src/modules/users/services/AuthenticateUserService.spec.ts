@@ -6,6 +6,7 @@ import FakeStorageProvider from '@shared/container/providers/StorageProvider/fak
 import FakeUserDocumentsRepository from '../repositories/fakes/FakeUserDocumentsRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
+import FakeUserAvatarsRepository from '../repositories/fakes/FakeUserAvatarsRepository';
 import AuthenticateUserService from './AuthenticateUserService';
 import CreateUserService from './CreateUserService';
 
@@ -15,6 +16,7 @@ let fakeStorageProvider: FakeStorageProvider;
 let fakeUserDocumentsRepository: FakeUserDocumentsRepository;
 let fakeHashProvider: FakeHashProvider;
 let fakeUsersRepository: FakeUsersRepository;
+let fakeUserAvatarsRepository: FakeUserAvatarsRepository;
 let createUserService: CreateUserService;
 let authenticateUserService: AuthenticateUserService;
 
@@ -24,6 +26,7 @@ describe('AuthenticateUser', () => {
     fakeTempFilesRepository = new FakeTempFilesRepository();
     fakeStorageProvider = new FakeStorageProvider();
     fakeUserDocumentsRepository = new FakeUserDocumentsRepository();
+    fakeUserAvatarsRepository = new FakeUserAvatarsRepository();
     fakeHashProvider = new FakeHashProvider();
     fakeUsersRepository = new FakeUsersRepository();
 
@@ -34,6 +37,7 @@ describe('AuthenticateUser', () => {
       fakeHashProvider,
       fakeStorageProvider,
       fakeUserDocumentsRepository,
+      fakeUserAvatarsRepository,
     );
 
     authenticateUserService = new AuthenticateUserService(
@@ -55,6 +59,7 @@ describe('AuthenticateUser', () => {
       gender: 'M',
       avatar_id: '',
       documents_ids: [''],
+      account_type: 'client',
     });
 
     const response = await authenticateUserService.execute({
@@ -88,6 +93,7 @@ describe('AuthenticateUser', () => {
       gender: 'M',
       avatar_id: '',
       documents_ids: [''],
+      account_type: 'client',
     });
 
     await expect(

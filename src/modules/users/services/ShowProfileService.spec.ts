@@ -26,6 +26,7 @@ describe('UpdateProfile', () => {
       rg: '123456781',
       birth,
       gender: 'M',
+      account_type: 'client',
     });
 
     const profile = await showProfileService.execute({

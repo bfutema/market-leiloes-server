@@ -36,6 +36,7 @@ describe('SendForgotPasswordEmail', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     await sendForgotPasswordEmail.execute({
@@ -46,8 +47,6 @@ describe('SendForgotPasswordEmail', () => {
   });
 
   it('should not be able to recover a non existing user password', async () => {
-    const sendMail = jest.spyOn(fakeMailProvider, 'sendMail');
-
     await expect(
       sendForgotPasswordEmail.execute({
         email: 'johndoe@example.com',
@@ -68,6 +67,7 @@ describe('SendForgotPasswordEmail', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     await sendForgotPasswordEmail.execute({

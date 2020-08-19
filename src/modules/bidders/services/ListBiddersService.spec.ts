@@ -1,18 +1,18 @@
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 
-import ListCandidatesService from './ListCandidatesService';
+import ListBiddersService from './ListBiddersService';
 
 let fakeUsersRepository: FakeUsersRepository;
-let listCandidatesService: ListCandidatesService;
+let listBiddersService: ListBiddersService;
 
-describe('ListCandidates', () => {
+describe('ListBidders', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
 
-    listCandidatesService = new ListCandidatesService(fakeUsersRepository);
+    listBiddersService = new ListBiddersService(fakeUsersRepository);
   });
 
-  it('should be able to list users with suatus_id equals 1', async () => {
+  it('should be able to list bidders', async () => {
     const client = await fakeUsersRepository.create({
       username: 'JohnDoe',
       email: 'johndoe@example.com',
@@ -36,7 +36,7 @@ describe('ListCandidates', () => {
       rg: '123456782',
       birth: new Date(),
       gender: 'F',
-      account_type: 'client',
+      account_type: 'bidder',
     });
 
     const loggedUser = await fakeUsersRepository.create({
@@ -52,10 +52,10 @@ describe('ListCandidates', () => {
       account_type: 'client',
     });
 
-    const candidates = await listCandidatesService.execute({
+    const candidates = await listBiddersService.execute({
       user_id: loggedUser.id,
     });
 
-    expect(candidates).toEqual([client, bidder]);
+    expect(candidates).toEqual([bidder]);
   });
 });

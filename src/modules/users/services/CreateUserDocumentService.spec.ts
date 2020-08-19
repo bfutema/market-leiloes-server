@@ -30,6 +30,7 @@ describe('CreateUserDocument', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     const userDocument = await createUserDocumentService.execute({

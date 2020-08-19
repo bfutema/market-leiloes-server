@@ -28,6 +28,7 @@ interface IRequest {
   gender: string;
   avatar_id: string;
   documents_ids: string[];
+  account_type: string;
 }
 
 @injectable()
@@ -67,6 +68,7 @@ class CreateUserService {
     gender,
     avatar_id,
     documents_ids,
+    account_type,
   }: IRequest): Promise<User> {
     const checkEmailExists = await this.usersRepository.findByEmail(email);
 
@@ -96,6 +98,7 @@ class CreateUserService {
       rg,
       birth,
       gender,
+      account_type,
     });
 
     if (avatar) {

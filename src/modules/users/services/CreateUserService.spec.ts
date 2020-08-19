@@ -86,6 +86,7 @@ describe('CreateUser', () => {
       gender: 'M',
       avatar_id: avatar.id.toString(),
       documents_ids: [document1.id.toString(), document2.id.toString()],
+      account_type: 'client',
     });
 
     expect(user).toHaveProperty('id');
@@ -113,6 +114,7 @@ describe('CreateUser', () => {
       gender: 'M',
       avatar_id: '',
       documents_ids: [''],
+      account_type: 'bidder',
     });
 
     await expect(
@@ -128,6 +130,7 @@ describe('CreateUser', () => {
         gender: 'M',
         avatar_id: '',
         documents_ids: [''],
+        account_type: 'client',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -145,6 +148,7 @@ describe('CreateUser', () => {
       gender: 'M',
       avatar_id: '',
       documents_ids: [''],
+      account_type: 'bidder',
     });
 
     await expect(
@@ -160,6 +164,7 @@ describe('CreateUser', () => {
         gender: 'M',
         avatar_id: '',
         documents_ids: [''],
+        account_type: 'bidder',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -177,6 +182,7 @@ describe('CreateUser', () => {
       gender: 'M',
       avatar_id: '',
       documents_ids: [''],
+      account_type: 'bidder',
     });
 
     await expect(
@@ -192,6 +198,7 @@ describe('CreateUser', () => {
         gender: 'M',
         avatar_id: '',
         documents_ids: [''],
+        account_type: 'bidder',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

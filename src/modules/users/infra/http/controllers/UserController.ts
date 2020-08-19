@@ -26,6 +26,7 @@ export default class UserController {
       gender,
       avatar_id,
       documents_ids,
+      account_type,
     } = request.body;
 
     const createUserService = container.resolve(CreateUserService);
@@ -42,6 +43,7 @@ export default class UserController {
       gender,
       avatar_id,
       documents_ids,
+      account_type,
     });
 
     delete user.password_hash;

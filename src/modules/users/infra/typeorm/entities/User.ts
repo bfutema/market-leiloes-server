@@ -9,6 +9,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
+import IdentityUserRole from '../../../../identity/infra/typeorm/entities/IdentityUserRole';
 import UserAccountStatus from './UserAccountStatus';
 import UserDocument from './UserDocument';
 import UserAvatar from './UserAvatar';
@@ -52,11 +53,17 @@ class User {
   @JoinColumn({ name: 'status_id' })
   status: UserAccountStatus;
 
+  @Column()
+  account_type: string;
+
   @OneToOne(() => UserAvatar, userAvatar => userAvatar.user)
   avatar: UserAvatar;
 
   @OneToMany(() => UserDocument, userDocument => userDocument.user)
   documents: UserDocument[];
+
+  @OneToMany(() => IdentityUserRole, roles => roles.user)
+  roles: IdentityUserRole[];
 
   @CreateDateColumn()
   created_at: Date;

@@ -2,7 +2,7 @@ import { uuid } from 'uuidv4';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-import IFindAllCandidatesDTO from '@modules/users/dtos/IFindAllCandidatesDTO';
+import IFindAllUsersDTO from '@modules/users/dtos/IFindAllUsersDTO';
 
 import User from '../../infra/typeorm/entities/User';
 
@@ -43,9 +43,31 @@ class FakeUsersRepository implements IUsersRepository {
 
   public async findAllCandidates({
     except_user_id,
-  }: IFindAllCandidatesDTO): Promise<User[] | []> {
+  }: IFindAllUsersDTO): Promise<User[] | []> {
     const candidates = this.users.filter(
       candidate => candidate.id !== except_user_id,
+    );
+
+    return candidates;
+  }
+
+  public async findAllBidders({
+    except_user_id,
+  }: IFindAllUsersDTO): Promise<User[] | []> {
+    const candidates = this.users.filter(
+      candidate =>
+        candidate.id !== except_user_id && candidate.account_type === 'bidder',
+    );
+
+    return candidates;
+  }
+
+  public async findAllClients({
+    except_user_id,
+  }: IFindAllUsersDTO): Promise<User[] | []> {
+    const candidates = this.users.filter(
+      candidate =>
+        candidate.id !== except_user_id && candidate.account_type === 'client',
     );
 
     return candidates;

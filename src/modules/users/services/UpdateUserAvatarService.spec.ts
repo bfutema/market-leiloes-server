@@ -30,6 +30,7 @@ describe('UpdateUserAvatar', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     await updateUserAvatarService.execute({
@@ -62,6 +63,7 @@ describe('UpdateUserAvatar', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     await updateUserAvatarService.execute({

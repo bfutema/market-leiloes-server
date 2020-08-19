@@ -64,6 +64,7 @@ describe('ListCandidates', () => {
       gender: 'M',
       avatar_id: file.id.toString(),
       documents_ids: [''],
+      account_type: 'client',
     });
 
     const users = await listUsersService.execute();
@@ -94,6 +95,7 @@ describe('ListCandidates', () => {
       gender: 'M',
       avatar_id: file.id.toString(),
       documents_ids: [''],
+      account_type: 'client',
     });
 
     const users = await listUsersService.execute();

@@ -1,5 +1,9 @@
 import { Router } from 'express';
 
+import biddersRouter from '@modules/bidders/infra/http/routes/bidders.routes';
+
+import clientsRouter from '@modules/clients/infra/http/routes/clients.routes';
+
 import idendityRolesRouter from '@modules/identity/infra/http/routes/identityRoles.routes';
 import idendityUserRolesRouter from '@modules/identity/infra/http/routes/identityUserRoles.routes';
 
@@ -15,6 +19,10 @@ import passwordRouter from '@modules/users/infra/http/routes/password.routes';
 import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 
 const routes = Router();
+
+routes.use('/bidders', biddersRouter);
+
+routes.use('/clients', clientsRouter);
 
 routes.use('/identity/roles', idendityRolesRouter);
 routes.use('/identity/user-roles', idendityUserRolesRouter);

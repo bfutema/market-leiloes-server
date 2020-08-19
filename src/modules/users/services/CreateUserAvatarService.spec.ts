@@ -30,6 +30,7 @@ describe('CreateUserAvatar', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     const userAvatar = await createUserAvatarService.execute({

@@ -24,6 +24,7 @@ describe('ApproveCandidate', () => {
       rg: '123456781',
       birth: new Date(),
       gender: 'M',
+      account_type: 'client',
     });
 
     await approveCandidateService.execute({

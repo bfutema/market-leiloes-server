@@ -3,6 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import IUsersAccountsStatusRepository from '@modules/users/repositories/IUsersAccountsStatusRepository';
 
 interface IRequest {
   user_id: string;
@@ -23,6 +24,7 @@ class ApproveCandidateService {
     }
 
     user.status_id = 2;
+    delete user.status;
 
     await this.usersRepository.save(user);
   }
