@@ -4,9 +4,8 @@
 
 - Verificar nível mínimo de complexidade de senha
 - Adicionar datepicker no campo birth no cadastro de usuário
-- Aumentar a quantidade de caracteres no campo cpf_cnpj na tabela
-- O usuário arrematante deve poder se candidatar para começar a ser um arrematante somente após uma análise de perfil;
-- O usuário cliente deve poder se candidatar para começar a ter seus produtos exibidos para arremate;
+- [x] O usuário arrematante deve poder se candidatar para começar a ser um arrematante somente após uma análise de perfil;
+- [x] O usuário cliente deve poder se candidatar para começar a ter seus produtos exibidos para arremate;
 - [x] O usuário deve poder informar seu nome, sobrenome, data de nascimento, gênero, email e senha;
 - [x] O usuário deve poder fazer upload do avatar e dos documentos referentes aos campos de cpf_cnpj e rg;
 - [x] O usuário deverá poder enviar um documento de prolabore da sua empresa para ser usado na análise do perfil;
@@ -18,8 +17,8 @@
 - [x] Ao fazer logoff remover token de usuário logado
 - Manter registros de atividades
 - Ao fazer login, carregar também o tipo de acesso e status da conta
-- Criar tipos de perfis de acesso e bloquear usuário com conta inativa de acessar todas as funcionalidades
-- Terão 3 tipos de usuários: O arrematante, O cliente e o Administrador
+- [x] Criar tipos de perfis de acesso
+- [x] Terão 3 tipos de usuários: O arrematante, O cliente e o Administrador
 
 **RNF**
 
@@ -35,7 +34,7 @@
 
 - [x] O usuário admin deverá poder listar as novas candidaturas;
 - O usuário admin deverá poder visualizar os detalhes de uma candidatura;
-- O usuário admin deverá poder aprovar ou reprovar uma candidatura;
+- [x] O usuário admin deverá poder aprovar ou reprovar uma candidatura;
 - O usuário arrematante deverá receber um email com informações do resultado da análise de perfil;
 
 **RNF**
