@@ -1,21 +1,27 @@
 import AppError from '@shared/errors/AppError';
 
-import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
+import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
+import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
 import RepproveCandidateService from './RepproveCandidateService';
 
 let fakeUsersRepository: FakeUsersRepository;
+let fakeMailProvider: FakeMailProvider;
 let repproveCandidateService: RepproveCandidateService;
 
 describe('RepproveCandidate', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
+    fakeMailProvider = new FakeMailProvider();
 
     repproveCandidateService = new RepproveCandidateService(
       fakeUsersRepository,
+      fakeMailProvider,
     );
   });
 
-  it('should be able to approve new candidate', async () => {
+  it('should be able to repprove new candidate', async () => {
+    const sendMail = jest.spyOn(fakeMailProvider, 'sendMail');
+
     const user = await fakeUsersRepository.create({
       username: 'JohnDoe',
       email: 'johndoe@example.com',
@@ -36,9 +42,10 @@ describe('RepproveCandidate', () => {
     const findUser = await fakeUsersRepository.findById(user.id);
 
     expect(findUser?.status_id).toBe(3);
+    expect(sendMail).toHaveBeenCalled();
   });
 
-  it('should not be able to approve non exisitng candidate', async () => {
+  it('should not be able to repprove non exisitng candidate', async () => {
     await expect(
       repproveCandidateService.execute({
         user_id: 'non-existing-user',

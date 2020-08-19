@@ -35,7 +35,7 @@
 - [x] O usuário admin deverá poder listar as novas candidaturas;
 - O usuário admin deverá poder visualizar os detalhes de uma candidatura;
 - [x] O usuário admin deverá poder aprovar ou reprovar uma candidatura;
-- O usuário arrematante deverá receber um email com informações do resultado da análise de perfil;
+- [x] O usuário arrematante/cliente deverá receber um email com informações do resultado da análise de perfil;
 
 **RNF**
 
@@ -45,14 +45,14 @@
 
 **RF**
 
-- O usuário admin deve poder cadastrar um produto informando lote, peso por kilo ou tonelada, foto, validade, valor;
-- O usuário admin deverá poder listar, editar e deletar um produto;
-- O usuário admin deverá poder abrir um novo leilão para um produto pré-cadastrado;
-- O usuário admin deverá poder fechar um leilão que está em aberto;
+- O usuário cliente deve poder cadastrar um produto informando lote, peso por kilo ou tonelada, foto, validade, valor;
+- O usuário cliente deverá poder listar, editar e deletar um produto;
+- O usuário cliente deverá poder abrir um novo leilão para um produto pré-cadastrado;
+- O usuário cliente deverá poder fechar um leilão que está em aberto;
 
 **RNF**
 
-- Os lances deverão entrar em uma fila gerenciàvel, onde ... ;
+- Os lances deverão entrar em uma fila gerenciável, onde ... ;
 
 **RN**
 
