@@ -36,6 +36,14 @@ class FakeUserAvatarsRepository implements IUserAvatarsRepository {
     return findUserAvatar;
   }
 
+  public async findByUserId(user_id: string): Promise<UserAvatar | undefined> {
+    const findUserAvatar = this.userAvatars.find(
+      userAvatar => userAvatar.user_id === user_id,
+    );
+
+    return findUserAvatar;
+  }
+
   public async save(userAvatar: UserAvatar): Promise<UserAvatar> {
     const findIndex = this.userAvatars.findIndex(
       findUserAvatar => findUserAvatar.id === userAvatar.id,

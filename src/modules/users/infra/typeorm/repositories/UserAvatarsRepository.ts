@@ -34,6 +34,12 @@ class UserAvatarsRepository implements IUserAvatarsRepository {
     return userAvatar;
   }
 
+  public async findByUserId(user_id: string): Promise<UserAvatar | undefined> {
+    const userAvatar = await this.ormRepository.findOne({ where: { user_id } });
+
+    return userAvatar;
+  }
+
   public async save(userAvatar: UserAvatar): Promise<UserAvatar> {
     const newUserAvatar = await this.ormRepository.save(userAvatar);
 

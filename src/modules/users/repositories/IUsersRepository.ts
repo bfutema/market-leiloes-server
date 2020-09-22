@@ -3,7 +3,7 @@ import User from '../infra/typeorm/entities/User';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
 import IFindAllUsersDTO from '../dtos/IFindAllUsersDTO';
 
-export default interface IUsersRepositories {
+export default interface IUsersRepository {
   create(data: ICreateUserDTO): Promise<User>;
   find(): Promise<User[]>;
   findById(id: string): Promise<User | undefined>;

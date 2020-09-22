@@ -24,7 +24,9 @@ class IdentityUserRolesRepository implements IIdentityUserRolesRepository {
   }
 
   public async find(): Promise<IdentityUserRole[]> {
-    const identityUserRoles = await this.ormRepository.find();
+    const identityUserRoles = await this.ormRepository.find({
+      relations: ['user', 'role'],
+    });
 
     return identityUserRoles;
   }

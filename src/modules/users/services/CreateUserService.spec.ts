@@ -13,8 +13,8 @@ let fakeTempFilesRepository: FakeTempFilesRepository;
 let fakeUserDocumentsRepository: FakeUserDocumentsRepository;
 let fakeUserAvatarsRepository: FakeUserAvatarsRepository;
 let fakeMailProvider: FakeMailProvider;
-let fakeStorageProvider: FakeStorageProvider;
 let fakeHashProvider: FakeHashProvider;
+let fakeStorageProvider: FakeStorageProvider;
 let fakeUsersRepository: FakeUserRepository;
 let createUserService: CreateUserService;
 

@@ -21,10 +21,10 @@ class FakeUserDocumentsRepository implements IUserDocumentsRepository {
   }
 
   public async createFiles(
-    userDocumentsData: UserDocument[],
+    userDocumentsData: ICreateUserDocumentDTO[],
   ): Promise<UserDocument[]> {
     const userDocuments = userDocumentsData.map(
-      (userDocumentData: UserDocument) => {
+      (userDocumentData: ICreateUserDocumentDTO) => {
         const userDocument = new UserDocument();
 
         Object.assign(userDocument, { id: uuid() }, userDocumentData);

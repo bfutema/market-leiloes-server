@@ -19,7 +19,7 @@ class FakeUsersRepository implements IUsersRepository {
     return user;
   }
 
-  public async find(): Promise<User[] | []> {
+  public async find(): Promise<User[]> {
     return this.users;
   }
 
